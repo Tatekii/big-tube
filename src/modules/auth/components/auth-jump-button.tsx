@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { SIGN_IN_PATH, SIGN_UP_PATH } from "@/constants"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -12,7 +13,7 @@ const AuthJumpButton = () => {
 
 	return (
 		<Button asChild>
-			<Link href={isSignup ? "/sign-in" : "sign-up"}>{btnText}</Link>
+			<Link href={isSignup ? SIGN_IN_PATH : SIGN_UP_PATH}>{btnText}</Link>
 		</Button>
 	)
 }

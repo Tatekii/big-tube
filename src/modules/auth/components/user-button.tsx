@@ -4,12 +4,13 @@ import { Loader, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import useLogout from "../api/useLogout"
-import useCurrent from "../api/useCurrent"
+
 import { DottedSeparator } from "@/components/dotted-separator"
+import { useAuth } from "../api/useAuth"
 
 export const UserButton = () => {
 	const { mutate: logout } = useLogout()
-	const { data: userData, isLoading } = useCurrent()
+	const { data: userData, isLoading } = useAuth()
 
 	if (isLoading) {
 		return (

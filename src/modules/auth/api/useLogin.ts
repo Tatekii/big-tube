@@ -10,7 +10,7 @@ export default function UseLogin() {
 			toast.success("登陆成功")
 			router.refresh()
 		},
-		onError: (err) => {
+		onError: () => {
 			toast.error("登陆失败")
 		},
 	})

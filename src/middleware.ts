@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { getAuthUser } from "@/modules/auth/utils"
+import { SIGN_IN_PATH } from "./constants"
 
-// Define protected and public routes
-const PROTECTED_PATHS = ["/home", "/studio", "/subscriptions", "/feed/subscribed", "/playlists", "/settings"]
+// 受保护路由
+const PROTECTED_PATHS = ["/studio", "/subscriptions", "/feed/subscribed", "/playlists", "/settings"]
 
 function isProtectedRoute(pathname: string): boolean {
 	return PROTECTED_PATHS.some((path) => pathname.startsWith(path))
@@ -24,7 +25,7 @@ export async function middleware(request: NextRequest) {
 
 	// Redirect unauthenticated users to login for protected routes
 	if (!userId && isProtectedRoute(pathname)) {
-		const loginUrl = new URL("/sign-in", request.url)
+		const loginUrl = new URL(SIGN_IN_PATH, request.url)
 		// loginUrl.searchParams.set("callbackUrl", pathname)
 		return NextResponse.redirect(loginUrl)
 	}

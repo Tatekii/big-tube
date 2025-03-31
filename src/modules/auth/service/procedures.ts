@@ -3,20 +3,60 @@
 import { baseProcedure, createTRPCRouter, protectedProcedure } from "@/trpc/init"
 import { TRPCError } from "@trpc/server"
 import { loginSchema, registerSchema } from "../schema"
-import { db } from "@/db"
+
 import { users } from "@/db/schema"
-import { redirect } from "next/navigation"
+import { eq } from "drizzle-orm"
+import { comparePasswords, hashPassword, removeAuthCookie, setAuthCookie } from "../utils"
+import { db } from "@/db"
 
 export const authRouter = createTRPCRouter({
 	current: protectedProcedure.query(async ({ ctx }) => {
-		return { data: ctx.user }
+		const user = await db.query.users.findFirst({
+			where: eq(users.id, ctx.user.id),
+			columns: {
+				id: true,
+				email: true,
+				firstName: true,
+				lastName: true,
+			},
+		})
+
+		if (!user) {
+			throw new TRPCError({
+				code: "NOT_FOUND",
+				message: "User not found",
+			})
+		}
+
+		return { data: user }
 	}),
 
-	login: baseProcedure.input(loginSchema).mutation(async ({ input, ctx }) => {
+	login: baseProcedure.input(loginSchema).mutation(async ({ input }) => {
 		const { email, password } = input
-		// TODO
 
 		try {
+			const user = await db.query.users.findFirst({
+				where: eq(users.email, email),
+			})
+
+			if (!user) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "User not found",
+				})
+			}
+
+			const isValidPassword = await comparePasswords(password, user.password)
+
+			if (!isValidPassword) {
+				throw new TRPCError({
+					code: "UNAUTHORIZED",
+					message: "Invalid credentials",
+				})
+			}
+
+			await setAuthCookie(user.id)
+
 			return {
 				success: true,
 			}
@@ -28,26 +68,43 @@ export const authRouter = createTRPCRouter({
 		}
 	}),
 
-	register: baseProcedure.input(registerSchema).mutation(async ({ input, ctx }) => {
+	register: baseProcedure.input(registerSchema).mutation(async ({ input }) => {
 		const { email, password, lastName, firstName } = input
 
-		// TODO
-
 		try {
-			// TODO
+			const existingUser = await db.query.users.findFirst({
+				where: eq(users.email, email),
+			})
 
-			// await cookies().set(ctx, AUTH_COOKIE, session.secret, {
-			// 	path: "/",
-			// 	httpOnly: true,
-			// 	secure: true,
-			// 	sameSite: "strict",
-			// 	maxAge: 60 * 60 * 24 * 30,
-			// })
+			if (existingUser) {
+				throw new TRPCError({
+					code: "CONFLICT",
+					message: "User already exists",
+				})
+			}
 
-			// await setAuthCookie(user.id)
+			const hashedPassword = await hashPassword(password)
+
+			const [user] = await db
+				.insert(users)
+				.values({
+					email,
+					password: hashedPassword,
+					firstName,
+					lastName
+				})
+				.returning()
+
+			await setAuthCookie(user.id)
 
 			return {
 				success: true,
+				user: {
+					id: user.id,
+					email: user.email,
+					firstName: user.firstName,
+					lastName: user.lastName,
+				},
 			}
 		} catch {
 			throw new TRPCError({
@@ -57,10 +114,9 @@ export const authRouter = createTRPCRouter({
 		}
 	}),
 
-	logout: protectedProcedure.mutation(async ({ ctx }) => {
+	logout: protectedProcedure.mutation(async () => {
 		try {
-			// await ctx.account.deleteSession("current")
-
+			await removeAuthCookie()
 			return { success: true }
 		} catch {
 			throw new TRPCError({

@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import useRegister from "../api/useRegister"
 import { registerSchema } from "../schema"
 import { DottedSeparator } from "@/components/dotted-separator"
+import { SIGN_IN_PATH } from "@/constants"
 
 const SignUpCard = () => {
 	const { mutate, isPending } = useRegister()
@@ -133,7 +134,7 @@ const SignUpCard = () => {
 			<CardContent className="p-7 flex items-center justify-center">
 				<p>
 					{"已经有账号了"}?
-					<Link href="/sign-in">
+					<Link href={SIGN_IN_PATH}>
 						<span className="text-blue-700">&nbsp;{"登陆"}</span>
 					</Link>
 				</p>

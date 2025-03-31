@@ -11,7 +11,7 @@ export const registerSchema = z
 		lastName: z.string().trim().min(1),
 		email: z.string().email(),
 		password: z.string().min(8),
-		password2: z.string().min(8),
+		password2: z.string().min(8)
 	})
 	.superRefine((val, ctx) => {
 		if (val.password2 !== val.password) {

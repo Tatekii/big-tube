@@ -14,6 +14,7 @@ import { FC } from "react"
 import useLogin from "../api/useLogin"
 import { DottedSeparator } from "@/components/dotted-separator"
 import { loginSchema } from "../schema"
+import { SIGN_UP_PATH } from "@/constants"
 
 const SignInCard: FC = () => {
 	const { mutate, isPending } = useLogin()
@@ -82,7 +83,7 @@ const SignInCard: FC = () => {
 				<p>
 					{"没有帐号"}?
 					<Button asChild variant={"link"} className="text-base">
-						<Link href="/sign-up">{"注册"}</Link>
+						<Link href={SIGN_UP_PATH}>{"注册"}</Link>
 					</Button>
 				</p>
 			</CardContent>
