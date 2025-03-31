@@ -4,6 +4,7 @@ import Image from "next/image";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import { SearchInput } from "./search-input";
+import { UserButton } from "@/modules/auth/components/user-button";
 
 export const HomeNavbar = () => {
   return  (
@@ -26,10 +27,7 @@ export const HomeNavbar = () => {
         </div>
 
         <div className="flex-shrink-0 items-center flex gap-4">
-          {/* <AuthButton />
-          // TODO 
-          */}
-          AUTH BUTTON
+          <UserButton/>
         </div>
       </div>
     </nav>

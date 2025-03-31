@@ -48,7 +48,7 @@ const SignInCard: FC = () => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input {...field} type="email" />
+										<Input {...field} type="email" placeholder="邮箱" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -60,7 +60,7 @@ const SignInCard: FC = () => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input {...field} type="password" />
+										<Input {...field} type="password" placeholder="密码" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

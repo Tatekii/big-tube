@@ -9,7 +9,7 @@ import { useState } from "react"
 import { makeQueryClient } from "./query-client"
 
 import { APP_URL } from "./constants"
-import { AppRouter } from "./routes/_app"
+import { AppRouter } from "./routers/_app"
 
 export const trpc = createTRPCReact<AppRouter>()
 
@@ -22,6 +22,7 @@ function getQueryClient() {
 
 	return (clientQueryClientSingleton ??= makeQueryClient())
 }
+
 function getUrl() {
 	const base = (() => {
 		if (typeof window !== "undefined") return ""
@@ -30,6 +31,7 @@ function getUrl() {
 	})()
 	return `${base}/api/trpc`
 }
+
 export function TRPCProvider(
 	props: Readonly<{
 		children: React.ReactNode

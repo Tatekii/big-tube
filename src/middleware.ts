@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
 	// Skip Next.js static files
 	if (
 		pathname.includes("/_next") ||
-		pathname.includes("/api") ||
 		pathname.match(/\.(?:jpg|jpeg|gif|png|svg|ico|css|js)$/)
 	) {
 		return NextResponse.next()

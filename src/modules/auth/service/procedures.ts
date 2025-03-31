@@ -11,15 +11,20 @@ import { db } from "@/db"
 
 export const authRouter = createTRPCRouter({
 	current: protectedProcedure.query(async ({ ctx }) => {
-		const user = await db.query.users.findFirst({
-			where: eq(users.id, ctx.user.id),
-			columns: {
-				id: true,
-				email: true,
-				firstName: true,
-				lastName: true,
-			},
-		})
+		// const user = await db.query.users.findFirst({
+		// 	where: eq(users.id, ctx.user.id),
+		// 	columns: {
+		// 		id: true,
+		// 		email: true,
+		// 		firstName: true,
+		// 		lastName: true,
+		// 	},
+		// })
+
+		console.log('INTO CURRENT');
+		
+
+		const { user } = ctx
 
 		if (!user) {
 			throw new TRPCError({
@@ -91,7 +96,7 @@ export const authRouter = createTRPCRouter({
 					email,
 					password: hashedPassword,
 					firstName,
-					lastName
+					lastName,
 				})
 				.returning()
 
