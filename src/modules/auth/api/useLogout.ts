@@ -1,22 +1,15 @@
 import { trpc } from "@/trpc/client"
-import { useQueryClient } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 const useLogout = () => {
-	const router = useRouter()
 	const utils = trpc.useUtils()
-	const queryClient = useQueryClient()
 
 	return trpc.auth.logout.useMutation({
 		onSuccess: () => {
 			toast.success("您已退出登录")
-			router.refresh()
 
-			utils.auth.current.invalidate()
-			
-			queryClient.invalidateQueries({ queryKey: ["current"] })
-			queryClient.invalidateQueries({ queryKey: ["workspaces"] })
+			// utils.auth.invalidate()
+			utils.auth.invalidate()
 		},
 		onError: () => {
 			toast.error("登出失败")

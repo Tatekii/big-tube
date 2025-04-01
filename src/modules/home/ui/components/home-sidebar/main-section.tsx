@@ -13,6 +13,7 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/modules/auth/api/useAuth"
+import useSignInModal from "@/modules/auth/hooks/useSignInModal"
 
 const items = [
 	{
@@ -35,6 +36,7 @@ const items = [
 
 export const MainSection = () => {
 	const { isSignedIn: signedIn } = useAuth()
+	const { open } = useSignInModal()
 
 	const pathname = usePathname()
 
@@ -51,8 +53,10 @@ export const MainSection = () => {
 								onClick={(e) => {
 									if (!signedIn && item.auth) {
 										e.preventDefault()
-										// TODO  提示登录
-										// return clerk.openSignIn();
+
+										open()
+
+										return
 									}
 								}}
 							>

@@ -28,7 +28,7 @@ export const UserButton = () => {
 		return <SignInButton />
 	}
 
-	const { firstName, lastName, email } = userData.data
+	const { firstName, lastName, email } = userData
 
 	const name = `${firstName} ${lastName}`
 

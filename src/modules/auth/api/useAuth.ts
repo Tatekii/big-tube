@@ -3,12 +3,13 @@
 import { trpc } from "@/trpc/client"
 
 export function useAuth() {
-
-	const query = trpc.auth.current.useQuery()
+	const { isError, data, isSuccess, isLoading } = trpc.auth.current.useQuery(undefined, {
+		retry: false,
+	})
 	
 	return {
-		data: query.data,
-		isSignedIn: !!query.data,
-		isLoading: query.isLoading,
+		data: isError ? null : data?.data,
+		isSignedIn: isSuccess && !!data?.data,
+		isLoading: isLoading,
 	}
 }

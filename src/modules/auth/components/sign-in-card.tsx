@@ -16,8 +16,11 @@ import { DottedSeparator } from "@/components/dotted-separator"
 import { loginSchema } from "../schema"
 import { SIGN_UP_PATH } from "@/constants"
 
-const SignInCard: FC = () => {
-	const { mutate, isPending } = useLogin()
+interface SignInCardProps {
+	isModal?: boolean
+}
+const SignInCard: FC<SignInCardProps> = ({ isModal = false }) => {
+	const { mutate, isPending } = useLogin(isModal)
 
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),

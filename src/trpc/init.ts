@@ -31,8 +31,12 @@ export const createCallerFactory = t.createCallerFactory
 export const baseProcedure = t.procedure
 
 export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx, next }) {
-
 	if (!ctx.userId) {
+		// NOTE
+		Reflect.deleteProperty(ctx, "user")
+
+		console.log("[[protectedProcedure]]", "UNAUTHORIZED")
+
 		throw new TRPCError({ code: "UNAUTHORIZED" })
 	}
 

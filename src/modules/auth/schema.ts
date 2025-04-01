@@ -21,4 +21,11 @@ export const registerSchema = z
 				path: ["password2"],
 			})
 		}
-	})
+	})// Add update schema
+export const updateUserSchema = z.object({
+	firstName: z.string().min(1).optional(),
+	lastName: z.string().min(1).optional(),
+	email: z.string().email().optional(),
+	password: z.string().min(6).optional(),
+})
+
