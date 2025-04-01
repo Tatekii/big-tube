@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"
-import { TRPCProvider } from "@/trpc/client"
+import { TRPCReactProvider } from "@/trpc/client"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,10 +21,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<TRPCProvider>
+				<TRPCReactProvider>
 					<Toaster />
 					<NuqsAdapter>{children}</NuqsAdapter>
-				</TRPCProvider>
+				</TRPCReactProvider>
 			</body>
 		</html>
 	)

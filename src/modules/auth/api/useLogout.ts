@@ -1,20 +1,24 @@
-import { trpc } from "@/trpc/client"
+import { useTRPC } from "@/trpc/client"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
 const useLogout = () => {
-	const utils = trpc.useUtils()
+	const trpc = useTRPC()
+	const queryClient = useQueryClient()
+	const currentQueryKey = trpc.auth.current.queryKey()
 
-	return trpc.auth.logout.useMutation({
-		onSuccess: () => {
-			toast.success("您已退出登录")
+	return useMutation(
+		trpc.auth.logout.mutationOptions({
+			onSuccess: () => {
+				toast.success("您已退出登录")
 
-			// utils.auth.invalidate()
-			utils.auth.invalidate()
-		},
-		onError: () => {
-			toast.error("登出失败")
-		},
-	})
+				queryClient.invalidateQueries({ queryKey: currentQueryKey })
+			},
+			onError: () => {
+				toast.error("登出失败")
+			},
+		})
+	)
 }
 
 export default useLogout

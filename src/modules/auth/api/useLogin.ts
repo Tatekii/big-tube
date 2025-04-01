@@ -1,28 +1,33 @@
 import { toast } from "sonner"
-import { trpc } from "@/trpc/client"
+import { useTRPC } from "@/trpc/client"
 import useSignInModal from "../hooks/useSignInModal"
 import { useRouter } from "next/navigation"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 export default function useLogin(isModal = false) {
 	const { close } = useSignInModal()
 	const { push } = useRouter()
 
-	const utils = trpc.useUtils()
+	const trpc = useTRPC()
+	const queryClient = useQueryClient()
+	const currentQueryKey = trpc.auth.current.queryKey()
 
-	return trpc.auth.login.useMutation({
-		onSuccess: () => {
-			toast.success("登陆成功")
+	return useMutation(
+		trpc.auth.login.mutationOptions({
+			onSuccess: () => {
+				toast.success("登陆成功")
 
-			utils.auth.current.invalidate()
+				queryClient.invalidateQueries({ queryKey: currentQueryKey })
 
-			if (isModal) {
-				close()
-			} else {
-				push("/")
-			}
-		},
-		onError: () => {
-			toast.error("登陆失败")
-		},
-	})
+				if (isModal) {
+					close()
+				} else {
+					push("/")
+				}
+			},
+			onError: () => {
+				toast.error("登陆失败")
+			},
+		})
+	)
 }
