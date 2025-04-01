@@ -129,6 +129,9 @@ export const subscriptionRelations = relations(subscriptions, ({ one }) => ({
 	}),
 }))
 
+/**
+ * 视频分类
+ */
 export const categories = pgTable(
 	"categories",
 	{
