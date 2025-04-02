@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { UserCircleIcon } from "lucide-react"
-import useSignInModal from "../hooks/useSignInModal"
+import useSignInModal from "../hooks/use-sign-in-modal"
 
 export const SignInButton = () => {
 	const { open } = useSignInModal()

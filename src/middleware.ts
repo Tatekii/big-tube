@@ -12,7 +12,9 @@ function isProtectedRoute(pathname: string): boolean {
 
 export async function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
+
 	const userId = await getAuthUser()
+	
 
 	// Skip Next.js static files
 	if (
@@ -24,6 +26,7 @@ export async function middleware(request: NextRequest) {
 
 	// Redirect unauthenticated users to login for protected routes
 	if (!userId && isProtectedRoute(pathname)) {
+		
 		const loginUrl = new URL(SIGN_IN_PATH, request.url)
 		// loginUrl.searchParams.set("callbackUrl", pathname)
 		return NextResponse.redirect(loginUrl)

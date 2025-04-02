@@ -12,7 +12,7 @@ export const createTRPCContext = cache(async () => {
 	// export const createTRPCContext = cache(async ({ req }: trpcNext.CreateNextContextOptions) => {
 	const userId = await getAuthUser()
 
-	return { userId: userId || null }
+	return { userId }
 })
 
 export type Context = Awaited<ReturnType<typeof createTRPCContext>>
@@ -31,6 +31,7 @@ export const createCallerFactory = t.createCallerFactory
 export const baseProcedure = t.procedure
 
 export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx, next }) {
+	
 	if (!ctx.userId) {
 		// NOTE
 		Reflect.deleteProperty(ctx, "user")
@@ -40,7 +41,17 @@ export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx,
 		throw new TRPCError({ code: "UNAUTHORIZED" })
 	}
 
-	const [user] = await db.select().from(users).where(eq(users.id, ctx.userId)).limit(1)
+	const [user] = await db
+		.select({
+			id: users.id,
+			email: users.email,
+			firstName: users.firstName,
+			lastName: users.lastName,
+			createdAt: users.createdAt,
+		})
+		.from(users)
+		.where(eq(users.id, ctx.userId))
+		.limit(1)
 
 	if (!user) {
 		throw new TRPCError({ code: "UNAUTHORIZED" })
@@ -55,6 +66,7 @@ export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx,
 	return next({
 		ctx: {
 			...ctx,
+			userId: ctx.userId,
 			user,
 		},
 	})

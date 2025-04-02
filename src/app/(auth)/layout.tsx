@@ -5,7 +5,7 @@ import AuthJumpButton from "@/modules/auth/components/auth-jump-button"
 
 const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
-		<main className="bg-neutral-100 min-h-screen">
+		<main className="min-h-screen">
 			<div className="mx-auto max-w-screen-2xl p-4">
 				<nav className="flex justify-between items-center">
 					<Image src="/logo.svg" alt={"logo"} width={70} height={56} />

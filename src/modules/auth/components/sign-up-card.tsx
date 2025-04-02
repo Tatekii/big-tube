@@ -12,8 +12,9 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 
 import useRegister from "../api/useRegister"
 import { registerSchema } from "../schema"
-import { DottedSeparator } from "@/components/dotted-separator"
+
 import { SIGN_IN_PATH } from "@/constants"
+import { Separator } from "@/components/ui/separator"
 
 const SignUpCard = () => {
 	const { mutate, isPending } = useRegister()
@@ -51,7 +52,7 @@ const SignUpCard = () => {
 				</CardDescription>
 			</CardHeader>
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 			<CardContent className="p-7">
 				<Form {...form}>
@@ -125,11 +126,11 @@ const SignUpCard = () => {
 				</Form>
 			</CardContent>
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 			<CardContent className="p-7 flex items-center justify-center">
 				<p>

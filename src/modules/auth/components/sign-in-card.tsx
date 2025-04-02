@@ -12,9 +12,10 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 
 import { FC } from "react"
 import useLogin from "../api/useLogin"
-import { DottedSeparator } from "@/components/dotted-separator"
+
 import { loginSchema } from "../schema"
 import { SIGN_UP_PATH } from "@/constants"
+import { Separator } from "@/components/ui/separator"
 
 interface SignInCardProps {
 	isModal?: boolean
@@ -40,7 +41,7 @@ const SignInCard: FC<SignInCardProps> = ({ isModal = false }) => {
 				<CardTitle className="text-2xl">{"欢迎回来"}!</CardTitle>
 			</CardHeader>
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 			<CardContent className="p-7">
 				<Form {...form}>
@@ -76,11 +77,11 @@ const SignInCard: FC<SignInCardProps> = ({ isModal = false }) => {
 				</Form>
 			</CardContent>
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 
 			<div className="px-7">
-				<DottedSeparator />
+				<Separator />
 			</div>
 			<CardContent className="p-7 flex items-center justify-center">
 				<p>

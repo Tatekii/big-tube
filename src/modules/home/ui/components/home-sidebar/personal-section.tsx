@@ -13,7 +13,7 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/modules/auth/api/useAuth"
-import useSignInModal from "@/modules/auth/hooks/useSignInModal"
+import useSignInModal from "@/modules/auth/hooks/use-sign-in-modal"
 
 const items = [
 	{

@@ -1,6 +1,6 @@
 "use client"
 import { ResponsiveModal } from "@/components/responsive-modal"
-import useSignInModal from "../hooks/useSignInModal"
+import useSignInModal from "../hooks/use-sign-in-modal"
 import SignInCard from "./sign-in-card"
 
 export const SignInModal = () => {

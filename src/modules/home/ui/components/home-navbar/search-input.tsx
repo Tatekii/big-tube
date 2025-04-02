@@ -1,80 +1,80 @@
-"use client";
+"use client"
 
-import { Suspense, useState } from "react";
-import { SearchIcon, XIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react"
+import { SearchIcon, XIcon } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
 
-
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { APP_URL } from "@/trpc/constants";
+import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { APP_URL } from "@/trpc/constants"
 
 export const SearchInput = () => {
-  return (
-    <Suspense fallback={<Skeleton className="h-10 w-full" />}>
-      <SearchInputSuspense />
-    </Suspense>
-  );
-};
+	return (
+		<Suspense fallback={<Skeleton className="h-10 w-full" />}>
+			<SearchInputSuspense />
+		</Suspense>
+	)
+}
 
 const SearchInputSuspense = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  
-  const query = searchParams.get("query") || "";
-  const categoryId = searchParams.get("categoryId") || "";
+	const router = useRouter()
+	const searchParams = useSearchParams()
 
-  const [value, setValue] = useState(query);
+	const query = searchParams.get("query") || ""
+	const categoryId = searchParams.get("categoryId") || ""
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+	const [value, setValue] = useState(query)
 
-    const url = new URL("/search", APP_URL);
-    const newQuery = value.trim();
+	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 
-    url.searchParams.set("query", encodeURIComponent(newQuery));
+		const url = new URL("/search", APP_URL)
+		const newQuery = value.trim()
 
-    if (categoryId) {
-      url.searchParams.set("categoryId", categoryId);
-    }
+		url.searchParams.set("query", encodeURIComponent(newQuery))
 
-    if (newQuery === "") {
-      url.searchParams.delete("query");
-    }
+		if (categoryId) {
+			url.searchParams.set("categoryId", categoryId)
+		}
 
-    setValue(newQuery);
-    router.push(url.toString());
-  }
+		if (newQuery === "") {
+			url.searchParams.delete("query")
+		}
 
-  return (
-    <form className="flex w-full max-w-[600px]" onSubmit={handleSearch}>
-      <div className="relative w-full">
-        <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          type="text"
-          placeholder="Search"
-          className="w-full pl-4 py-2 pr-12 rounded-l-full border focus:outline-none focus:border-blue-500"
-        />
-        {value && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={() => setValue("")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
-          >
-            <XIcon className="text-gray-500" />
-          </Button>
-        )}
-      </div>
-      <button
-        disabled={!value.trim()}
-        type="submit"
-        className="px-5 py-2.5 bg-gray-100 border border-l-0 rounded-r-full hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <SearchIcon className="size-5" />
-      </button>
-    </form>
-  );
-};
+		setValue(newQuery)
+		router.push(url.toString())
+	}
+
+	return (
+		<form className="flex w-full max-w-[600px]" onSubmit={handleSearch}>
+			<div className="relative w-full">
+				<input
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
+					type="text"
+					placeholder="Search"
+					className="w-full pl-4 py-2 pr-12 rounded-l-full border focus:outline-none focus:border-blue-500"
+				/>
+				{value && (
+					<Button
+						type="button"
+						variant="ghost"
+						size="icon"
+						onClick={() => setValue("")}
+						className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+					>
+						<XIcon className="text-gray-500" />
+					</Button>
+				)}
+			</div>
+			<Button
+				disabled={!value.trim()}
+				type="submit"
+        // variant='secondary'
+				className="px-5 py-2.5 border border-l-0 rounded-r-full hover:opacity-50 disabled:opacity-50 disabled:cursor-not-allowed h-full"
+			>
+				<SearchIcon className="size-5" />
+			</Button>
+		</form>
+	)
+}

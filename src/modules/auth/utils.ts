@@ -22,11 +22,14 @@ export async function setAuthCookie(userId: string): Promise<void> {
 }
 
 export async function getAuthUser(): Promise<string | null> {
+
 	const token = (await cookies()).get(AUTH_COOKIE)?.value
+
 	if (!token) return null
 
 	try {
 		const payload = await verifyJWT(token)
+
 		return payload.sub
 	} catch {
 		return null

@@ -1,16 +1,17 @@
 "use client"
 
-import { Loader, LogOut } from "lucide-react"
+import { ClapperboardIcon, Loader, LogOut, UserIcon } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import useLogout from "../api/useLogout"
 import { LucideIcon } from "lucide-react"
 
-import { DottedSeparator } from "@/components/dotted-separator"
 import { useAuth } from "../api/useAuth"
 import Link from "next/link"
-import { ReactNode } from "react"
+import { FC, ReactNode } from "react"
 import { SignInButton } from "./sign-in-button"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 export const UserButton = () => {
 	const { mutate: logout } = useLogout()
@@ -18,7 +19,7 @@ export const UserButton = () => {
 
 	if (isLoading) {
 		return (
-			<div className="size-10 rounded-full flex items-center justify-center bg-neutral-200 border border-neutral-300">
+			<div className="size-10 rounded-full flex items-center justify-center border">
 				<Loader className="size-4 animate-spin text-muted-foreground" />
 			</div>
 		)
@@ -37,27 +38,38 @@ export const UserButton = () => {
 	return (
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger className="outline-none relative">
-				<Avatar className="size-10 hover:opacity-75 transition border border-neutral-300">
-					<AvatarFallback className="bg-neutral-200 font-medium text-neutral-500 flex items-center justify-center">
+				<Avatar className="size-10 hover:opacity-75 transition border ">
+					<AvatarFallback className=" font-medium text-neutral-500 flex items-center justify-center">
 						{avatarFallback}
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end" side="bottom" className="w-60" sideOffset={10}>
-				<div className="flex flex-col items-center justify-center gap-2 px-2.5 py-4">
-					<Avatar className="size-[52px] border border-neutral-300">
-						<AvatarFallback className="bg-neutral-200 text-xl font-medium text-neutral-500 flex items-center justify-center">
+			<DropdownMenuContent align="end" side="bottom" className="w-80" sideOffset={10}>
+				<div className="flex flex-row items-center justify-start gap-4 p-2.5">
+
+					<Avatar className="size-[48px] border border-neutral-300">
+						<AvatarFallback className=" text-xl font-medium text-neutral-500 flex items-center justify-center">
 							{avatarFallback}
 						</AvatarFallback>
 					</Avatar>
-					<div className="flex flex-row items-center justify-center gap-2">
-						<p className="text-sm font-medium text-neutral-900">{name || "User"}</p>
-						<p className="text-xs text-neutral-500">{email}</p>
+
+					<div className="flex flex-col justify-start gap-2">
+						<p className="text-xs font-medium">{name || "User"}</p>
+						<p className="text-xs ">{email}</p>
 					</div>
+					
 				</div>
 
-				<DottedSeparator />
+				<Separator />
+
+				<ButtonItem icon={<UserIcon />} label="用户中心" href="/users/current" />
+
+				<Separator />
+
+				<ButtonItem icon={<ClapperboardIcon />} label="工作室" href="/studio" />
+
+				<Separator />
 
 				<ButtonItem icon={<LogOut />} label="退出登录" onClick={() => logout()} />
 				{/* 
@@ -80,20 +92,22 @@ interface ButtonItemProps {
 	label: string
 	href?: string
 	onClick?: () => void
+	className?: string
 }
 
-export const ButtonItem = ({ icon: Icon, label, href, onClick }: ButtonItemProps) => {
+export const ButtonItem: FC<ButtonItemProps> = ({ icon: Icon, label, href, onClick, className }) => {
 	const content = (
 		<>
 			{Icon && (typeof Icon === "function" ? <Icon className=" mr-2" /> : <span className=" mr-2">{Icon}</span>)}
 			{label}
 		</>
 	)
+	const cls = cn(`h-10 flex items-center font-medium cursor-pointer pl-5`, className)
 
 	if (href) {
 		return (
 			<DropdownMenuItem asChild>
-				<Link href={href} className="flex items-center">
+				<Link href={href} className={cls}>
 					{content}
 				</Link>
 			</DropdownMenuItem>
@@ -101,10 +115,7 @@ export const ButtonItem = ({ icon: Icon, label, href, onClick }: ButtonItemProps
 	}
 
 	return (
-		<DropdownMenuItem
-			onClick={onClick}
-			className="h-10 flex items-center justify-center font-medium cursor-pointer"
-		>
+		<DropdownMenuItem onClick={onClick} className={cls}>
 			{content}
 		</DropdownMenuItem>
 	)

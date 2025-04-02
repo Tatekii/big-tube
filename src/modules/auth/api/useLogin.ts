@@ -1,6 +1,6 @@
 import { toast } from "sonner"
 import { useTRPC } from "@/trpc/client"
-import useSignInModal from "../hooks/useSignInModal"
+import useSignInModal from "../hooks/use-sign-in-modal"
 import { useRouter } from "next/navigation"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 

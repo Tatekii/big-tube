@@ -23,6 +23,9 @@ export const authRouter = createTRPCRouter({
 
 		const { user } = ctx
 
+		// NOTE drop id in server
+		const { id, ...userInfo } = user
+
 		// if (!user || !userId) {
 		// 	// 自动登出
 		// 	await removeAuthCookie()
@@ -35,7 +38,7 @@ export const authRouter = createTRPCRouter({
 		// 	})
 		// }
 
-		return { data: user }
+		return { data: userInfo }
 	}),
 
 	login: baseProcedure.input(loginSchema).mutation(async ({ input }) => {
@@ -120,7 +123,6 @@ export const authRouter = createTRPCRouter({
 	logout: protectedProcedure.mutation(async ({ ctx }) => {
 		try {
 			await removeAuthCookie()
-			ctx.userId = null
 
 			return { success: true }
 		} catch {
