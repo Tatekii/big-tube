@@ -34,24 +34,24 @@ export const StudioUploadButton = () => {
 		})
 	)
 
-
 	const handleUploadSuccess = useCallback(() => {
 		if (!data?.video.id) return
 		reset()
-		router.push(`/studio/videos/${data.video.id}`)
+		// TODO
+		// router.push(`/studio/videos/${data.video.id}`)
 	}, [data])
 
 	return (
 		<>
-			<ResponsiveModal title="上传视频" open={!!data?.url} onOpenChange={() => reset()}>
-				{data?.url ? (
-					<StudioUploader endpoint={data.url} onUploadSuccess={handleUploadSuccess} />
+			<ResponsiveModal title="上传视频" open={!!data?.muxUrl} onOpenChange={() => reset()}>
+				{data?.muxUrl ? (
+					<StudioUploader endpoint={data.muxUrl} onUploadSuccess={handleUploadSuccess} />
 				) : (
 					<Loader2Icon />
 				)}
 			</ResponsiveModal>
 			<Button variant="secondary" onClick={() => mutate()} disabled={isPending}>
-				{false ? <Loader2Icon className="animate-spin" /> : <PlusIcon />}
+				{isPending ? <Loader2Icon className="animate-spin" /> : <PlusIcon />}
 				创建
 			</Button>
 		</>

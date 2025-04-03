@@ -36,8 +36,8 @@ export const videosRouter = createTRPCRouter({
 			.returning()
 
 		return {
-			video: video,
-			url: upload.url,
+			video,
+			muxUrl: upload.url,
 		}
 	}),
 })

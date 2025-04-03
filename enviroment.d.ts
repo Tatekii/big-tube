@@ -8,6 +8,7 @@ declare global {
 			JWT_SECRET: string
 			MUX_TOKEN_ID: string
 			MUX_TOKEN_SECRET: string
+			MUX_WEBHOOK_SECRET: string
 		}
 	}
 }

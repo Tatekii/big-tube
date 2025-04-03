@@ -21,12 +21,16 @@ export const StudioUploader = ({
 }: StudioUploaderProps) => {
   return (
     <div>
+
+      {/* hidden */}
       <MuxUploader
         onSuccess={onSuccess}
         endpoint={endpoint}
         id={UPLOADER_ID}
         className="hidden group/uploader"
       />
+
+      
       <MuxUploaderDrop muxUploader={UPLOADER_ID} className="group/drop">
         <div slot="heading" className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-2 rounded-full bg-muted h-32 w-32">

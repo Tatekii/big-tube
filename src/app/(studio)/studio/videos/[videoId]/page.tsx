@@ -1,6 +1,6 @@
 import { HydrateClient, prefetch, trpc } from "@/trpc/server"
 
-import { VideoView } from "@/modules/studio/ui/views/video-view"
+// import { VideoView } from "@/modules/studio/ui/views/video-view"
 
 export const dynamic = "force-dynamic"
 
@@ -16,7 +16,7 @@ const StudioVideoIdPage = async ({ params }: PageProps) => {
 
 	return (
 		<HydrateClient>
-			<VideoView videoId={videoId} />
+			{/* <VideoView videoId={videoId} /> */}
 		</HydrateClient>
 	)
 }
