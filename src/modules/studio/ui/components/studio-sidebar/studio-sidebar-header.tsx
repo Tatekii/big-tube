@@ -30,11 +30,11 @@ export const StudioSidebarHeader = () => {
 				<SidebarMenuButton tooltip="Your profile" asChild>
 					<Link prefetch href="/users/current">
 						<UserAvatar
-							imageUrl={user.imageUrl || "/user-placeholder"}
+							imageUrl={user.imageUrl || "/user-placeholder.svg"}
 							name={fullName ?? "User"}
 							size="xs"
 						/>
-						<span className="text-sm">Your profile</span>
+						<span className="text-sm">个人信息</span>
 					</Link>
 				</SidebarMenuButton>
 			</SidebarMenuItem>

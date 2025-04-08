@@ -8,7 +8,7 @@ import { StudioUploadButton } from "../studio-upload-button"
 
 export const StudioNavbar = () => {
 	return (
-		<nav className="fixed top-0 left-0 right-0 h-16 flex items-center px-2 pr-5 z-50 border-b shadow-md">
+		<nav className="fixed top-0 left-0 right-0 h-16 flex items-center px-2 pr-5 z-50 border-b shadow-md bg-background">
 			<div className="flex items-center gap-4 w-full">
 				{/* Menu and Logo */}
 				<div className="flex items-center flex-shrink-0">

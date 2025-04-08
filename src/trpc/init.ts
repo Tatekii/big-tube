@@ -31,7 +31,6 @@ export const createCallerFactory = t.createCallerFactory
 export const baseProcedure = t.procedure
 
 export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx, next }) {
-	
 	if (!ctx.userId) {
 		// NOTE
 		Reflect.deleteProperty(ctx, "user")
@@ -48,6 +47,7 @@ export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx,
 			firstName: users.firstName,
 			lastName: users.lastName,
 			createdAt: users.createdAt,
+			imageUrl: users.imageUrl,
 		})
 		.from(users)
 		.where(eq(users.id, ctx.userId))

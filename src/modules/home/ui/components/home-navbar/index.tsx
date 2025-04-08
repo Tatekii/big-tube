@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export const HomeNavbar = () => {
   return  (
-    <nav className="fixed top-0 left-0 right-0 h-16 flex items-center px-2 pr-5 z-50">
+    <nav className="fixed top-0 left-0 right-0 h-16 flex items-center px-2 pr-5 z-50 bg-background">
       <div className="flex items-center gap-4 w-full">
         {/* Menu and Logo */}
         <div className="flex items-center flex-shrink-0">
