@@ -15,6 +15,7 @@ import { InfiniteScroll } from "@/components/infinite-scroll"
 import { useTRPC } from "@/trpc/client"
 import { DEFAULT_LIMIT } from "@/trpc/constants"
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
+import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail"
 
 export const VideosSection = () => {
 	return (
@@ -116,13 +117,12 @@ const VideosSectionSuspense = () => {
 										<TableCell className="pl-6">
 											<div className="flex items-center gap-4">
 												<div className="relative aspect-video w-36 shrink-0">
-													{/* <VideoThumbnail 
-                          imageUrl={video.thumbnailUrl} 
-                          previewUrl={video.previewUrl}
-                          title={video.title}
-                          duration={video.duration || 0}
-                        /> */}
-													{"// TODO 视频封面"}
+													<VideoThumbnail
+														imageUrl={video.thumbnailUrl}
+														previewUrl={video.previewUrl}
+														title={video.title}
+														duration={video.duration || 0}
+													/>
 												</div>
 												<div className="flex flex-col overflow-hidden gap-y-1">
 													<span className="text-sm line-clamp-1">{video.title}</span>
