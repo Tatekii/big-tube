@@ -6,7 +6,6 @@ import { toast } from "sonner"
 const useLogout = () => {
 	const trpc = useTRPC()
 	const queryClient = useQueryClient()
-	const currentQueryKey = trpc.auth.current.queryKey()
 	const route = useRouter()
 
 	return useMutation(
@@ -16,7 +15,7 @@ const useLogout = () => {
 
 				route.push("/")
 
-				queryClient.invalidateQueries({ queryKey: currentQueryKey })
+				queryClient.invalidateQueries(trpc.auth.current.pathFilter())
 			},
 			onError: () => {
 				toast.error("登出失败")

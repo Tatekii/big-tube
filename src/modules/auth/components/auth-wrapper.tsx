@@ -1,3 +1,4 @@
+"use server"
 import { getAuthUser } from "@/modules/auth/utils"
 
 interface AuthProps {

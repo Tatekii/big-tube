@@ -10,14 +10,13 @@ export default function useLogin(isModal = false) {
 
 	const trpc = useTRPC()
 	const queryClient = useQueryClient()
-	const currentQueryKey = trpc.auth.current.queryKey()
 
 	return useMutation(
 		trpc.auth.login.mutationOptions({
 			onSuccess: () => {
 				toast.success("登陆成功")
 
-				queryClient.invalidateQueries({ queryKey: currentQueryKey })
+				queryClient.invalidateQueries(trpc.auth.current.pathFilter())
 
 				if (isModal) {
 					close()

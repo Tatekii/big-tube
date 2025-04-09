@@ -8,7 +8,6 @@ export default function UseRegister() {
 	const trpc = useTRPC()
 
 	const router = useRouter()
-	const currentQueryKey = trpc.auth.current.queryKey()
 
 	return useMutation(
 		trpc.auth.register.mutationOptions({
@@ -17,7 +16,7 @@ export default function UseRegister() {
 
 				router.refresh()
 
-				queryClient.invalidateQueries({ queryKey: currentQueryKey })
+				queryClient.invalidateQueries(trpc.auth.current.pathFilter())
 			},
 			onError: () => {
 				toast.error("注册失败")

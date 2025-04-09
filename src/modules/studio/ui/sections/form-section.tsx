@@ -16,6 +16,7 @@ import {
 	Loader2Icon,
 	LockIcon,
 	MoreVerticalIcon,
+	RotateCcwIcon,
 	SparklesIcon,
 	TrashIcon,
 } from "lucide-react"
@@ -116,6 +117,9 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 
 	const queryClient = useQueryClient()
 
+	const invalidVideoList = () => queryClient.invalidateQueries(trpc.studio.getMany.pathFilter())
+	const invalidCurVideo = () => queryClient.invalidateQueries(trpc.studio.getOne.queryFilter({ id: videoId }))
+
 	const [thumbnailModalOpen, setThumbnailModalOpen] = useState(false)
 
 	const { data: video } = useSuspenseQuery(
@@ -126,18 +130,11 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 
 	const { data: categories } = useSuspenseQuery(trpc.categories.getMany.queryOptions())
 
-	const studioGetOneKey = trpc.studio.getOne.queryKey()
-	const studioGetManyKey = trpc.studio.getMany.queryKey()
-
 	const update = useMutation(
 		trpc.videos.update.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: [studioGetOneKey, { id: videoId }],
-				})
-				queryClient.invalidateQueries({
-					queryKey: [studioGetManyKey],
-				})
+				invalidCurVideo()
+				invalidVideoList()
 				toast.success("已更新")
 			},
 			onError: () => {
@@ -149,15 +146,26 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	const remove = useMutation(
 		trpc.videos.remove.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: [studioGetManyKey],
-				})
+				invalidVideoList()
 
 				toast.success("视频已删除")
 				router.push("/studio")
 			},
 			onError: () => {
 				toast.error("出错了")
+			},
+		})
+	)
+
+	const restoreThumbnail = useMutation(
+		trpc.videos.restoreThumbnail.mutationOptions({
+			onSuccess: () => {
+				invalidVideoList()
+				invalidCurVideo()
+				toast.success("Thumbnail restored")
+			},
+			onError: () => {
+				toast.error("Something went wrong")
 			},
 		})
 	)
@@ -308,12 +316,12 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 															<SparklesIcon className="size-4 mr-1" />
 															AI-生成
 														</DropdownMenuItem>
-														{/* <DropdownMenuItem
+														<DropdownMenuItem
 															onClick={() => restoreThumbnail.mutate({ id: videoId })}
 														>
 															<RotateCcwIcon className="size-4 mr-1" />
 															重置
-														</DropdownMenuItem> */}
+														</DropdownMenuItem>
 													</DropdownMenuContent>
 												</DropdownMenu>
 											</div>

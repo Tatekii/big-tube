@@ -17,16 +17,12 @@ export const StudioUploadButton = () => {
 
 	const queryClient = useQueryClient()
 
-	const studioQueryKey = trpc.studio.getMany.queryKey()
-
 	const { mutate, data, isPending, reset } = useMutation(
 		trpc.videos.create.mutationOptions({
 			onSuccess: () => {
 				toast.success("视频创建成功")
 
-				queryClient.invalidateQueries({
-					queryKey: studioQueryKey,
-				})
+				queryClient.invalidateQueries(trpc.studio.getMany.pathFilter())
 			},
 			onError: () => {
 				toast.error("出错了")
@@ -34,12 +30,12 @@ export const StudioUploadButton = () => {
 		})
 	)
 
-	const handleUploadSuccess = useCallback(() => {
+	const handleUploadSuccess = () => {
 		if (!data?.video.id) return
 		reset()
 		// TODO
 		// router.push(`/studio/videos/${data.video.id}`)
-	}, [data])
+	}
 
 	return (
 		<>
