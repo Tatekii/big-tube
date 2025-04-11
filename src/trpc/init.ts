@@ -46,6 +46,7 @@ export const protectedProcedure = t.procedure.use(async function isAuthed({ ctx,
 			email: users.email,
 			firstName: users.firstName,
 			lastName: users.lastName,
+			name: users.name,
 			createdAt: users.createdAt,
 			imageUrl: users.imageUrl,
 		})

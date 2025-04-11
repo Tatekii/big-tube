@@ -72,6 +72,7 @@ export const users = pgTable(
 		password: text("password").notNull(),
 		firstName: text("firstName").notNull(),
 		lastName: text("lastName").notNull(),
+		name: text("name").notNull(),
 		bannerUrl: text("banner_url"),
 		bannerKey: text("banner_key"),
 		imageUrl: text("image_url"),

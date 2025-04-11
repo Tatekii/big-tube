@@ -16,7 +16,7 @@ interface CategoriesSectionProps {
 export const CategoriesSection = ({ categoryId }: CategoriesSectionProps) => {
 	return (
 		<Suspense fallback={<CategoriesSectionSkeleton />}>
-			<ErrorBoundary fallback={<p>Error...</p>}>
+			<ErrorBoundary fallback={<p>出错了...</p>}>
 				<CategoriesSectionSuspense categoryId={categoryId} />
 			</ErrorBoundary>
 		</Suspense>

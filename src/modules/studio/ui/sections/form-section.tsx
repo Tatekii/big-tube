@@ -31,7 +31,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Form, FormControl, FormField, FormLabel, FormMessage, FormItem } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants"
+import { THUMBNAIL_FALLBACK } from "@/constants"
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player"
 
 import { APP_URL } from "@/trpc/constants"

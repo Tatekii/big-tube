@@ -23,8 +23,8 @@ export const authRouter = createTRPCRouter({
 
 		const { user } = ctx
 
-		// NOTE drop id in server
-		const { id, ...userInfo } = user
+		// TODO drop id in server??
+		// const { ...userInfo } = user
 
 		// if (!user || !userId) {
 		// 	// 自动登出
@@ -38,7 +38,7 @@ export const authRouter = createTRPCRouter({
 		// 	})
 		// }
 
-		return { data: userInfo }
+		return { data: user }
 	}),
 
 	login: baseProcedure.input(loginSchema).mutation(async ({ input }) => {
@@ -98,6 +98,7 @@ export const authRouter = createTRPCRouter({
 					password: hashedPassword,
 					firstName,
 					lastName,
+					name: firstName + (lastName ? ` ${lastName}` : ``),
 				})
 				.returning()
 

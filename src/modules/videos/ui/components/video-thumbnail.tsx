@@ -2,7 +2,7 @@ import Image from "next/image"
 
 import { formatDuration } from "@/lib/utils"
 
-import { THUMBNAIL_FALLBACK } from "../../constants"
+import { THUMBNAIL_FALLBACK } from "@/constants"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface VideoThumbnailProps {
