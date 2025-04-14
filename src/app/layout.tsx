@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
 import { ourFileRouter } from "./api/uploadthing/core"
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -38,6 +39,7 @@ export default function RootLayout({
 							 */
 							routerConfig={extractRouterConfig(ourFileRouter)}
 						/>
+						<ReactQueryDevtools initialIsOpen={false} />
 						<NuqsAdapter>{children}</NuqsAdapter>
 					</TRPCReactProvider>
 				</ThemeProvider>

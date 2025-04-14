@@ -69,7 +69,7 @@ const VideosSectionSuspense = ({ playlistId }: VideosSectionProps) => {
       queryClient.invalidateQueries(trpc.playlists.getVideos.queryFilter({ playlistId: data.playlistId }))
     },
     onError: () => {
-      toast.error("Something went wrong");
+      toast.error("出错了，请稍后再试");
     },
   }));
 

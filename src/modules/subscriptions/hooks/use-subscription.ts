@@ -30,7 +30,7 @@ export const useSubscription = ({ userId, isSubscribed, fromVideoId }: UseSubscr
 			}
 		},
 		onError: (error) => {
-			toast.error("Something went wrong")
+			toast.error("出错了，请稍后再试")
 
 			if (error.data?.code === "UNAUTHORIZED") {
 				open()
@@ -50,7 +50,7 @@ export const useSubscription = ({ userId, isSubscribed, fromVideoId }: UseSubscr
 			}
 		},
 		onError: (error) => {
-			toast.error("Something went wrong")
+			toast.error("出错了，请稍后再试")
 
 			if (error.data?.code === "UNAUTHORIZED") {
 				open()

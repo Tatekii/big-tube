@@ -165,7 +165,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 				toast.success("Thumbnail restored")
 			},
 			onError: () => {
-				toast.error("Something went wrong")
+				toast.error("出错了，请稍后再试")
 			},
 		})
 	)

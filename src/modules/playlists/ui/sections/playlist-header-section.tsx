@@ -55,7 +55,7 @@ const PlaylistHeaderSectionSuspense = ({
       router.push("/playlists");
     },
     onError: () => {
-      toast.error("Something went wrong");
+      toast.error("出错了，请稍后再试");
     }
   }));
 

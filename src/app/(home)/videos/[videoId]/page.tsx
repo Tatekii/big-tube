@@ -13,12 +13,7 @@ interface PageProps {
 const Page = async ({ params }: PageProps) => {
 	const { videoId } = await params
 
-
-//   prefetch(
-//     trpc.comments.getMany.infiniteQueryOptions({
-//       { videoId, limit: DEFAULT_LIMIT }
-//     })
-//   )
+	prefetch(trpc.comments.getMany.infiniteQueryOptions({ videoId, limit: DEFAULT_LIMIT }))
 
 	prefetch(trpc.videos.getOne.queryOptions({ id: videoId }))
 

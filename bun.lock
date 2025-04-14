@@ -35,10 +35,10 @@
         "@radix-ui/react-toggle": "^1.1.2",
         "@radix-ui/react-toggle-group": "^1.1.2",
         "@radix-ui/react-tooltip": "^1.1.8",
-        "@tanstack/react-query": "^5.71.1",
-        "@trpc/client": "^11.0.1",
-        "@trpc/server": "^11.0.1",
-        "@trpc/tanstack-react-query": "^11.0.4",
+        "@tanstack/react-query": "^5.74.0",
+        "@trpc/client": "^11.1.0",
+        "@trpc/server": "^11.1.0",
+        "@trpc/tanstack-react-query": "^11.1.0",
         "@types/bcryptjs": "^3.0.0",
         "@uploadthing/react": "^7.3.0",
         "@upstash/ratelimit": "^2.0.5",
@@ -79,6 +79,7 @@
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3",
+        "@tanstack/react-query-devtools": "^5.74.0",
         "@types/node": "^20",
         "@types/pg": "^8.11.11",
         "@types/react": "^19",
@@ -416,15 +417,19 @@
 
     "@swc/helpers": ["@swc/helpers@0.5.15", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g=="],
 
-    "@tanstack/query-core": ["@tanstack/query-core@5.71.1", "", {}, "sha512-4+ZswCHOfJX+ikhXNoocamTUmJcHtB+Ljjz/oJkC7/eKB5IrzEwR4vEwZUENiPi+wISucJHR5TUbuuJ26w3kdQ=="],
+    "@tanstack/query-core": ["@tanstack/query-core@5.74.0", "", {}, "sha512-kMqBfXA06INskI06rm+abAY3/Vi/Kq1nRNfLbpwuhuMJ5lMAI5qASretlvjEO5OJoze6w7OB3pNvsbztirIWWQ=="],
 
-    "@tanstack/react-query": ["@tanstack/react-query@5.71.1", "", { "dependencies": { "@tanstack/query-core": "5.71.1" }, "peerDependencies": { "react": "^18 || ^19" } }, "sha512-6BTkaSIGT58MroI4kIGXNdx/NhirXPU+75AJObLq+WBa39WmoxhzSk0YX+hqWJ/bvqZJFxslbEU4qIHaRZq+8Q=="],
+    "@tanstack/query-devtools": ["@tanstack/query-devtools@5.73.3", "", {}, "sha512-hBQyYwsOuO7QOprK75NzfrWs/EQYjgFA0yykmcvsV62q0t6Ua97CU3sYgjHx0ZvxkXSOMkY24VRJ5uv9f5Ik4w=="],
 
-    "@trpc/client": ["@trpc/client@11.0.1", "", { "peerDependencies": { "@trpc/server": "11.0.1", "typescript": ">=5.7.2" } }, "sha512-HvOrvWAXbGBwt4om+NfuxrK4f+ik2aaNIXq7WLrJbEp7U+YXfh5++1a5p4JDaikrvSaObJ389DhYAGWz90xSGw=="],
+    "@tanstack/react-query": ["@tanstack/react-query@5.74.0", "", { "dependencies": { "@tanstack/query-core": "5.74.0" }, "peerDependencies": { "react": "^18 || ^19" } }, "sha512-tT/XQ8FmG5nlN7O8xnYaOM1c1ckJi9+SPKRq+Ay8rV118lefWCoFDQIsF/BarRsLTHijBmSQ6xE9PRugaOqrCQ=="],
 
-    "@trpc/server": ["@trpc/server@11.0.1", "", { "peerDependencies": { "typescript": ">=5.7.2" } }, "sha512-DZS3+bONLno4oJjHBMrS3xRPtoZsnmBImDH/Mmo1QhaFt3Xp/S0Riu7WU/oofsLTVj2m1UO5LlgLJFumvlSNoQ=="],
+    "@tanstack/react-query-devtools": ["@tanstack/react-query-devtools@5.74.0", "", { "dependencies": { "@tanstack/query-devtools": "5.73.3" }, "peerDependencies": { "@tanstack/react-query": "^5.74.0", "react": "^18 || ^19" } }, "sha512-zr71wMXcczDbOqSktvnpPohbYjBO318UCHfK4guPJDoLaFUmtFRIGrVNektLQR3YJZSXBRtL9Krk3nEqIiT/uw=="],
 
-    "@trpc/tanstack-react-query": ["@trpc/tanstack-react-query@11.0.4", "", { "peerDependencies": { "@tanstack/react-query": "^5.67.1", "@trpc/client": "11.0.4", "@trpc/server": "11.0.4", "react": ">=18.2.0", "react-dom": ">=18.2.0", "typescript": ">=5.7.2" } }, "sha512-8mCoJ0gfEaMfFDelnB1a6oWRjUP1uwJAOh3FHm6dGPtnycMpFj/yjg10/yE3Xgfoc3l4cL7WjugZRyrSi2XKig=="],
+    "@trpc/client": ["@trpc/client@11.1.0", "", { "peerDependencies": { "@trpc/server": "11.1.0", "typescript": ">=5.7.2" } }, "sha512-Q3pL4p7AddxI/ZJTEFo1utKSdasDFjZPECIPsKDkthEt52k530JkYVltTdLkYFKrNWXKKBo8MN7NwchelczoRw=="],
+
+    "@trpc/server": ["@trpc/server@11.1.0", "", { "peerDependencies": { "typescript": ">=5.7.2" } }, "sha512-uAJ7ikejeujVkf53XFJ/0W8nr7bDjul+Szk5Rsepq97Hb/WS1RkRXdyX4KqAyCE9b1vDFCJVJwSxiIZdRtbTZQ=="],
+
+    "@trpc/tanstack-react-query": ["@trpc/tanstack-react-query@11.1.0", "", { "peerDependencies": { "@tanstack/react-query": "^5.67.1", "@trpc/client": "11.1.0", "@trpc/server": "11.1.0", "react": ">=18.2.0", "react-dom": ">=18.2.0", "typescript": ">=5.7.2" } }, "sha512-BRK5QWKAVHqvDyqjnGYp+53sgb5xE3MB1+fxrBKylVR1lFEeFQvUHwwY3Dtr/Pcq0mmxALytCsBVEGTiQCHnEw=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.9.0", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw=="],
 

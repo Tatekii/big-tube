@@ -3,24 +3,23 @@
  */
 "use client"
 // ^-- to make sure we can mount the Provider from a server component
-import type { QueryClient } from "@tanstack/react-query"
 import superjson from "superjson"
-import { QueryClientProvider } from "@tanstack/react-query"
 import { httpBatchLink, createTRPCClient } from "@trpc/client"
 import { useState } from "react"
 import { makeQueryClient } from "./query-client"
 
 import { APP_URL } from "./constants"
 import { AppRouter } from "./routers/_app"
-import { createTRPCContext } from '@trpc/tanstack-react-query';
+import { createTRPCContext } from "@trpc/tanstack-react-query"
+import { QueryClient, QueryClientProvider, isServer } from "@tanstack/react-query"
 
 export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>()
 
 // 单例模式啦
-let clientQueryClientSingleton: QueryClient
+let browserQueryClient: QueryClient | undefined = undefined
 
 function getQueryClient() {
-	if (typeof window === "undefined") {
+	if (isServer) {
 		// Server: always make a new query client
 		return makeQueryClient()
 	}
@@ -29,7 +28,8 @@ function getQueryClient() {
 	// This is very important, so we don't re-make a new client if React
 	// suspends during the initial render. This may not be needed if we
 	// have a suspense boundary BELOW the creation of the query client
-	return (clientQueryClientSingleton ??= makeQueryClient())
+	if (!browserQueryClient) browserQueryClient = makeQueryClient()
+	return browserQueryClient
 }
 
 function getUrl() {

@@ -31,6 +31,7 @@ export const suggestionsRouter = createTRPCRouter({
       throw new TRPCError({ code: "NOT_FOUND" });
     }
 
+    // 只查了观看次数，点赞点踩数相同
     const data = await db
       .select({
         ...getTableColumns(videos),

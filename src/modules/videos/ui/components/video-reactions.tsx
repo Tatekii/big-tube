@@ -32,7 +32,7 @@ export const VideoReactions = ({ videoId, likes, dislikes, viewerReaction }: Vid
 				queryClient.invalidateQueries(trpc.playlists.getLiked.pathFilter())
 			},
 			onError: (error) => {
-				toast.error("Something went wrong")
+				toast.error("出错了，请稍后再试")
 
 				if (error.data?.code === "UNAUTHORIZED") {
 					openSignIn()
@@ -48,7 +48,7 @@ export const VideoReactions = ({ videoId, likes, dislikes, viewerReaction }: Vid
 				queryClient.invalidateQueries(trpc.playlists.getLiked.pathFilter())
 			},
 			onError: (error) => {
-				toast.error("Something went wrong")
+				toast.error("出错了，请稍后再试")
 
 				if (error.data?.code === "UNAUTHORIZED") {
 					openSignIn()

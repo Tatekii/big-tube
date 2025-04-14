@@ -9,18 +9,13 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 
 // IMPORTANT: Create a stable getter for the query client that
 //            will return the same client during the same request.
-export const getQueryClient = cache(makeQueryClient)
+const getQueryClient = cache(makeQueryClient)
 
 /**
  * this method is detached from your query client and does not store the data in the cache.
  * This means that you cannot use the data in a server component and expect it to be available in the client.
  */
 export const caller = createCallerFactory(appRouter)(createTRPCContext)
-
-// export const { trpc, HydrateClient } = createHydrationHelpers<typeof appRouter>(
-//   caller,
-//   getQueryClient,
-// );
 
 export const trpc = createTRPCOptionsProxy({
 	ctx: createTRPCContext,

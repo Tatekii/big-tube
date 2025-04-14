@@ -49,7 +49,7 @@ export const PlaylistCreateModal = ({
       onOpenChange(false);
     },
     onError: () => {
-      toast.error("Something went wrong");
+      toast.error("出错了，请稍后再试");
     },
   }));
 

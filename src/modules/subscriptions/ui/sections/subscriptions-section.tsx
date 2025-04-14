@@ -58,7 +58,7 @@ const SubscriptionsSectionSuspense = () => {
 				queryClient.invalidateQueries(trpc.users.getOne.queryFilter({ id: data.creatorId }))
 			},
 			onError: () => {
-				toast.error("Something went wrong")
+				toast.error("出错了，请稍后再试")
 			},
 		})
 	)
