@@ -16,7 +16,7 @@ const VideoShare: FC<VideoShareProps> = ({ videoId }) => {
 	}
 
 	return (
-		<Button onClick={onShare} className="rounded-full">
+		<Button onClick={onShare} className="rounded-full" variant='secondary'>
 			<ShareIcon className="mr-2 size-4" />
 			分享
 		</Button>

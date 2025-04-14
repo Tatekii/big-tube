@@ -16,6 +16,7 @@ import { useTRPC } from "@/trpc/client"
 import { DEFAULT_LIMIT } from "@/trpc/constants"
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail"
+import { zhCN } from "date-fns/locale"
 
 export const VideosSection = () => {
 	return (
@@ -127,7 +128,7 @@ const VideosSectionSuspense = () => {
 												<div className="flex flex-col overflow-hidden gap-y-1">
 													<span className="text-sm line-clamp-1">{video.title}</span>
 													<span className="text-xs text-muted-foreground line-clamp-1">
-														{video.description || "No description"}
+														{video.description || "无简介"}
 													</span>
 												</div>
 											</div>
@@ -148,7 +149,7 @@ const VideosSectionSuspense = () => {
 											</div>
 										</TableCell>
 										<TableCell className="text-sm truncate">
-											{format(new Date(video.createdAt), "d MMM yyyy")}
+											{format(new Date(video.createdAt), "d MMM yyyy", { locale: zhCN })}
 										</TableCell>
 										<TableCell className="text-right text-sm">{video.viewCount}</TableCell>
 										<TableCell className="text-right text-sm">{video.commentCount}</TableCell>

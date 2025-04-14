@@ -7,6 +7,8 @@ import { UserNameSpan } from "@/modules/users/ui/components/user-name-span"
 import { useAuth } from "@/modules/auth/api/useAuth"
 import { VideoGetOneOutput } from "../../types"
 import { AVATAR_FALLBACK } from "@/constants"
+import { useSubscription } from "@/modules/subscriptions/hooks/use-subscription"
+import { SubscriptionButton } from "@/modules/subscriptions/ui/components/subscription-button"
 
 interface VideoOwnerProps {
 	user: VideoGetOneOutput["user"]
@@ -14,9 +16,15 @@ interface VideoOwnerProps {
 }
 
 export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
-	const { data } = useAuth()
+	const { data, isLoading } = useAuth()
 
 	const loginUserId = data?.id
+
+	const { isPending, onClick } = useSubscription({
+		userId: user.id,
+		isSubscribed: user.viewerSubscribed,
+		fromVideoId: videoId,
+	})
 
 	return (
 		<div className="flex items-center sm:items-start justify-between sm:justify-start gap-3 min-w-0">
@@ -38,7 +46,12 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 					</Link>
 				</Button>
 			) : (
-				<div>{"// TODO 订阅按钮"}</div>
+				<SubscriptionButton
+					onClick={onClick}
+					disabled={isPending || isLoading}
+					isSubscribed={user.viewerSubscribed}
+					className="flex-none"
+				/>
 			)}
 		</div>
 	)

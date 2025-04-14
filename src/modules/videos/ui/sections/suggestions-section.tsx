@@ -10,7 +10,6 @@ import { VideoRowCard, VideoRowCardSkeleton } from "../components/video-row-card
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
 import { DEFAULT_LIMIT } from "@/trpc/constants"
-import { FilterCarousel } from "@/components/filter-carousel"
 
 interface SuggestionsSectionProps {
 	videoId: string
@@ -22,10 +21,8 @@ export const SuggestionsSection = ({ videoId, isManual }: SuggestionsSectionProp
 		<Suspense fallback={<SuggestionsSectionSkeleton />}>
 			<ErrorBoundary fallback={<p>出错了</p>}>
 				{/* TODO 推荐中也有视频的分类 */}
-				<FilterCarousel
-					onSelect={()=>{}}
-					data={[]}
-				/>
+
+				<p className="mb-2 text-xs font-medium">为您推荐</p>
 				<SuggestionsSectionSuspense videoId={videoId} isManual={isManual} />
 			</ErrorBoundary>
 		</Suspense>

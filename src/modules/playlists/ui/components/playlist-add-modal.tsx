@@ -2,7 +2,6 @@ import { toast } from "sonner";
 import { Loader2Icon, SquareCheckIcon, SquareIcon } from "lucide-react";
 
 import { useTRPC } from "@/trpc/client";
-import { DEFAULT_LIMIT } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { ResponsiveModal } from "@/components/responsive-modal";
 import { InfiniteScroll } from "@/components/infinite-scroll";
@@ -10,6 +9,7 @@ import { InfiniteScroll } from "@/components/infinite-scroll";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { DEFAULT_LIMIT } from "@/trpc/constants";
 
 interface PlaylistAddModalProps {
   open: boolean;
