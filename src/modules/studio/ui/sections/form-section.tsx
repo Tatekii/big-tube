@@ -34,7 +34,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { THUMBNAIL_FALLBACK } from "@/constants"
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player"
 
-import { APP_URL } from "@/trpc/constants"
+import { APP_URL } from "@/constants"
 import { useTRPC } from "@/trpc/client"
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query"
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal"

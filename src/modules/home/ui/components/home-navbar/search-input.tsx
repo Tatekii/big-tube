@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { APP_URL } from "@/trpc/constants"
+import { APP_URL } from "@/constants"
 
 export const SearchInput = () => {
 	return (

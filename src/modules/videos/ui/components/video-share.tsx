@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { APP_URL } from "@/trpc/constants"
+import { APP_URL } from "@/constants"
 import { ShareIcon } from "lucide-react"
 import { FC } from "react"
 import { toast } from "sonner"
