@@ -19,9 +19,9 @@ export const PlaylistsView = () => {
       />
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Playlists</h1>
+          <h1 className="text-2xl font-bold">播放列表</h1>
           <p className="text-xs text-muted-foreground">
-            Collections you have created
+            你创建的合集
           </p>
         </div>
         <Button

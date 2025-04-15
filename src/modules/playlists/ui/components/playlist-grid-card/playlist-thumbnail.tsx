@@ -4,8 +4,7 @@ import { ListVideoIcon, PlayIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-
-import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
+import { THUMBNAIL_FALLBACK } from "@/constants";
 
 interface PlaylistThumbnailProps {
   title: string;
@@ -59,7 +58,7 @@ export const PlaylistThumbnail = ({
           <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
             <div className="flex items-center gap-x-2">
               <PlayIcon className="size-4 text-white fill-white" />
-              <span className="text-white font-medium">Play all</span>
+              <span className="text-white font-medium">全部播放</span>
             </div>
           </div>
         </div>
@@ -68,7 +67,7 @@ export const PlaylistThumbnail = ({
       {/* Video count indicator */}
       <div className="absolute bottom-2 right-2 px-1 py-0.5 rounded bg-black/80 text-white text-xs font-medium flex items-center gap-x-1">
         <ListVideoIcon className="size-4" />
-        {compactViews} videos
+        {compactViews} 视频
       </div>
     </div>
   );
