@@ -1,7 +1,7 @@
 "use client"
 
 import { ClapperboardIcon, Loader, LogOut, UserIcon } from "lucide-react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import useLogout from "../api/useLogout"
 import { LucideIcon } from "lucide-react"
@@ -12,6 +12,7 @@ import { FC, ReactNode } from "react"
 import { SignInButton } from "./sign-in-button"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
+import { AVATAR_FALLBACK } from "@/constants"
 
 export const UserButton = () => {
 	const { mutate: logout } = useLogout()
@@ -29,7 +30,7 @@ export const UserButton = () => {
 		return <SignInButton />
 	}
 
-	const { firstName, lastName, email } = userData
+	const { firstName, lastName, email, imageUrl } = userData
 
 	const name = `${firstName} ${lastName}`
 
@@ -39,6 +40,7 @@ export const UserButton = () => {
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger className="outline-none relative">
 				<Avatar className="size-10 hover:opacity-75 transition border ">
+					{imageUrl && <AvatarImage src={imageUrl} className="object-cover"/>}
 					<AvatarFallback className=" font-medium text-neutral-500 flex items-center justify-center">
 						{avatarFallback}
 					</AvatarFallback>
@@ -47,18 +49,17 @@ export const UserButton = () => {
 
 			<DropdownMenuContent align="end" side="bottom" className="w-80" sideOffset={10}>
 				<div className="flex flex-row items-center justify-start gap-4 p-2.5">
-
 					<Avatar className="size-[48px] border border-neutral-300">
+						{imageUrl && <AvatarImage src={imageUrl} className="object-cover"/>}
 						<AvatarFallback className=" text-xl font-medium text-neutral-500 flex items-center justify-center">
 							{avatarFallback}
 						</AvatarFallback>
 					</Avatar>
 
 					<div className="flex flex-col justify-start gap-2">
-						<p className="text-xs font-medium">{name || "User"}</p>
-						<p className="text-xs ">{email}</p>
+						<p className="text-s font-medium">{name || "User"}</p>
+						<p className="text-xs font-medium">{email}</p>
 					</div>
-					
 				</div>
 
 				<Separator />
@@ -72,14 +73,6 @@ export const UserButton = () => {
 				<Separator />
 
 				<ButtonItem icon={<LogOut />} label="退出登录" onClick={() => logout()} />
-				{/* 
-				<DropdownMenuItem
-					onClick={() => logout()}
-					className="h-10 flex items-center justify-center text-amber-700 font-medium cursor-pointer"
-				>
-					<LogOut className="size-4 mr-2" />
-					{"登出"}
-				</DropdownMenuItem> */}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

@@ -62,7 +62,6 @@ export const ourFileRouter = {
 			})
 		)
 		.middleware(async ({ input }) => {
-
 			const userId = await getAuthUser()
 
 			if (!userId) throw new UploadThingError("Unauthorized")
@@ -100,6 +99,36 @@ export const ourFileRouter = {
 					thumbnailKey: file.key,
 				})
 				.where(and(eq(videos.id, metadata.videoId), eq(videos.userId, metadata.user.id)))
+
+			return { uploadedBy: metadata.user.id }
+		}),
+
+	avatarUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
+		.middleware(async () => {
+			const userId = await getAuthUser()
+
+			if (!userId) throw new Error("Unauthorized")
+
+			const [user] = await db.select().from(users).where(eq(users.id, userId))
+
+			if (!user) throw new UploadThingError("Unauthorized")
+
+			const utapi = new UTApi()
+
+			if (user.imageUrl) {
+				await utapi.deleteFiles(user.imageUrl)
+				await db.update(users).set({ imageUrl: null }).where(eq(users.id, userId))
+			}
+
+			return { user }
+		})
+		.onUploadComplete(async ({ metadata, file }) => {
+			await db
+				.update(users)
+				.set({
+					imageUrl: file.ufsUrl,
+				})
+				.where(eq(users.id, metadata.user.id))
 
 			return { uploadedBy: metadata.user.id }
 		}),

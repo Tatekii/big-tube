@@ -36,6 +36,7 @@ export const UserSectionSkeleton = () => {
 
 const UserSectionSuspense = ({ userId }: UserSectionProps) => {
   const trpc = useTRPC();
+  
   const {
     data: user
   } = useSuspenseQuery(trpc.users.getOne.queryOptions({ id: userId }));

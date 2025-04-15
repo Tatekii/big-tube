@@ -11,6 +11,7 @@ import { useSubscription } from "@/modules/subscriptions/hooks/use-subscription"
 import { SubscriptionButton } from "@/modules/subscriptions/ui/components/subscription-button"
 import { useAuth } from "@/modules/auth/api/useAuth"
 import { AVATAR_FALLBACK } from "@/constants"
+import { UserAvatarUploader } from "./user-avatar-uploader"
 
 interface UserPageInfoProps {
 	user: UserGetOneOutput
@@ -59,17 +60,22 @@ export const UserPageInfo = ({ user }: UserPageInfoProps) => {
 			{/* Mobile layout */}
 			<div className="flex flex-col md:hidden">
 				<div className="flex items-center gap-3">
-					<UserAvatar
-						size="lg"
-						imageUrl={user.imageUrl || AVATAR_FALLBACK}
-						name={user.name}
-						className="h-[60px] w-[60px]"
-						onClick={() => {
-							if (user.id === userId) {
-								open()
-							}
-						}}
-					/>
+					{userId === user.id ? (
+						<UserAvatarUploader
+							size="lg"
+							imageUrl={user.imageUrl || AVATAR_FALLBACK}
+							name={user.name}
+							className="h-[60px] w-[60px]"
+							userId={userId}
+						/>
+					) : (
+						<UserAvatar
+							size="lg"
+							imageUrl={user.imageUrl || AVATAR_FALLBACK}
+							name={user.name}
+							className="h-[60px] w-[60px]"
+						/>
+					)}
 					<div className="flex-1 min-w-0">
 						<h1 className="text-xl font-bold">{user.name}</h1>
 						<div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
@@ -97,19 +103,24 @@ export const UserPageInfo = ({ user }: UserPageInfoProps) => {
 
 			{/* Desktop layout */}
 			<div className="hidden md:flex items-start gap-4">
-				<UserAvatar
-					size="xl"
-					imageUrl={user.imageUrl || AVATAR_FALLBACK}
-					name={user.name}
-					className={cn(
-						userId === user.id && "cursor-pointer hover:opacity-80 transition-opacity duration-300"
-					)}
-					onClick={() => {
-						if (user.id === userId) {
-							open()
-						}
-					}}
-				/>
+				{userId === user.id ? (
+					<UserAvatarUploader
+						size="xl"
+						imageUrl={user.imageUrl || AVATAR_FALLBACK}
+						name={user.name}
+						className="h-[160px] w-[160px]"
+						userId={userId}
+					/>
+				) : (
+					<UserAvatar
+						size="xl"
+						imageUrl={user.imageUrl || AVATAR_FALLBACK}
+						name={user.name}
+						className={cn(
+							userId === user.id && "cursor-pointer hover:opacity-80 transition-opacity duration-300"
+						)}
+					/>
+				)}
 				<div className="flex-1 min-w-0">
 					<h1 className="text-4xl font-bold">{user.name}</h1>
 					<div className="flex items-center gap-1 text-sm text-muted-foreground mt-3">

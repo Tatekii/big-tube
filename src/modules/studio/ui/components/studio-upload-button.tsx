@@ -8,7 +8,7 @@ import { useTRPC } from "@/trpc/client"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useCallback } from "react"
+
 
 export const StudioUploadButton = () => {
 	const router = useRouter()
@@ -33,8 +33,7 @@ export const StudioUploadButton = () => {
 	const handleUploadSuccess = () => {
 		if (!data?.video.id) return
 		reset()
-		// TODO
-		// router.push(`/studio/videos/${data.video.id}`)
+		router.push(`/studio/videos/${data.video.id}`)
 	}
 
 	return (
